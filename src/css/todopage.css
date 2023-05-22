@@ -65,3 +65,11 @@
   color: #ffffff;
   text-decoration: line-through;
 }
+
+.stikeout{
+  text-decoration: line-through;
+}
+
+.noStrike{
+  text-decoration: none;
+}
