@@ -11,6 +11,7 @@ import UpdateProfileComponent from "./components/updateProfile";
 import LightComponent from "./components/lightonoff";
 import VideoPage from "./Pages/Video";
 import TodoPage from "./Pages/TodoPage";
+import ProfilePage from "./Pages/profile";
 
 const App = () => {
   return(
@@ -24,6 +25,8 @@ const App = () => {
       <Route path="light" element={<LightComponent></LightComponent>}></Route>
       <Route path="videos" element={<VideoPage></VideoPage>}></Route>
       <Route path="todolist" element={<TodoPage></TodoPage>}></Route>
+
+      <Route path="profile" element={<ProfilePage></ProfilePage>}></Route>
     </Routes>
     </BrowserRouter>
   )
