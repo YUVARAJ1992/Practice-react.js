@@ -28,11 +28,19 @@ const TodoPage = () => {
 
     }
 
+    const clickEnterKey = (event) =>{
+        console.log(event)
+        if(event.key === "Enter"){
+            clickToAdd();
+        }
+    }
 
-    const enterKeyPress = (event) => {
-      if(event.key === "Enter"){
-        clickToAdd();
-      }
+    const ClicktoDelete = (number) =>{
+        let copy = [...todoList];
+        copy = copy.filter(
+            (item, index) => number != index
+        )
+        updateTodoList(copy)
     }
 
     return(
@@ -40,20 +48,22 @@ const TodoPage = () => {
             <h1>TodoList Page</h1>
             <div>
             <div className="header">
-
                 <h2 className="todoheader">My todolist</h2>
-                <input type="text" onChange={handleTodoList} onKeyDown={enterKeyPress} className="input" placeholder="Title...." name="todolist" value={statevariable.todolist}/>
-                <span onClick={()=> clickToAdd()} className="addBtn">Add</span>
+                <input type="text" onChange={handleTodoList} onKeyDown={clickEnterKey} className="input" placeholder="Title...." name="todolist" value={statevariable.todolist}/>
+                <span type="submit" onClick={()=> clickToAdd()} className="addBtn">Add</span>
                 </div>
                 <div>
                 {
+
                         todoList.map((value, index) => {
+                            console.log(value)
                             return (
-                                <ul className="ul" key={index}>
-                                    { value.isStriked  && <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Flat_tick_icon.svg" width="50" /> }
-                                    <li className={value.isStriked ? "stikeout" : "noStrike"} onClick={() => AddStrike(index)}>{value.todolist}</li>
-                                    <button>X</button>
-                                </ul>
+                                
+                                 <div className={value.isStriked ? "strikeout box" : "nostrike box"} key={index}>
+                                    {value.isStriked && <img src={require("../images/tick.png")} />}
+                                    <div className={value.isStriked ? "strikeout squarebox1" : "nostrike squarebox1"} onClick={() => AddStrike(index)}><p>{value.todolist}</p></div>
+                                    <div className="squarebox2 " onClick={() => ClicktoDelete(index)}>X</div>
+                                   </div>
                             )
                         })   
                     }
