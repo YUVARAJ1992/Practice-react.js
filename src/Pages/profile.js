@@ -26,7 +26,7 @@ const ProfilePage = () => {
             <td>Milk Moch</td>
             <td>
               <button>Update</button>
-              <button>Delete</button>
+              <button>Deletess</button>
             </td>
           </tr>
         </tbody>
