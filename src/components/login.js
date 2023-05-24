@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import "../css/Buttons.css"
+
 const LoginComponent = () => {
   const [loginForm, SubmitLogin] = useState({
     email : "",
@@ -42,6 +44,14 @@ const LoginComponent = () => {
         </div>
         <div>
           <button onClick={() => ClickLogin()}>Login</button>
+        </div>
+        <div className="box">
+          <div className="squarebox1">
+            <p>First box</p>
+          </div>
+          <div className="squarebox2">
+            <button>X</button>
+          </div>
         </div>
       </div>
 
