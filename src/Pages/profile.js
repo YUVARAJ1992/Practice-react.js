@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const ProfilePage = () => {
 
-  const [profilelist, updateProfiles] = useState({ firstname: "", lastname: "" });
+  const [profilelist, updateProfiles] = useState({ firstname: "", lastname: "", isEditable : false });
   const [userProfiles, updateUserProfiles] = useState([]);
 
   const getProfiles = (event) => {
@@ -24,6 +24,19 @@ const ProfilePage = () => {
     updateUserProfiles(copy)
   }
 
+
+  const ClicktoUpdate = (index) => {
+    userProfiles[index].isEditable = true;
+
+    updateUserProfiles([...userProfiles]);
+  }
+
+  const ClicktoDiscard = (index) => {
+    userProfiles[index].isEditable = false;
+
+    updateUserProfiles([...userProfiles]);
+  }
+
   return (
     <div>
       <h3>Profile Infomation</h3>
@@ -39,7 +52,8 @@ const ProfilePage = () => {
       <table>
         <thead>
           <tr>
-            <th>Full Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -49,10 +63,28 @@ const ProfilePage = () => {
             userProfiles.map((value, index) => {
               return (
                 <tr key={index}>
-                  <td>{value.firstname} {value.lastname}</td>
                   <td>
-                    <button>Update</button>
+
+                    { value.isEditable ? 
+                        <input type='text' value={value.firstname} />  
+                        :
+                        value.firstname
+                    }
+                    
+                  </td>
+                  <td>
+                    { value.isEditable ? 
+                        <input type='text' value={value.lastname} />  
+                        :
+                        value.lastname
+                    }
+                  </td>
+                  <td>
+                    <button onClick={() => ClicktoUpdate(index)}>Update</button>
                     <button onClick={() => ClicktoDelete(index)}>Delete</button>
+
+                    <button>Save</button>
+                    <button onClick={() => ClicktoDiscard(index)}>Discard</button>
                   </td>
                 </tr>
               )
