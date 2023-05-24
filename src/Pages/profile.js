@@ -13,7 +13,8 @@ const ProfilePage = () => {
   const clickButton = () => {
     console.log(profilelist)
     updateUserProfiles([...userProfiles, profilelist])
-    console.log(userProfiles);
+    
+    updateProfiles({ ...profilelist, firstname: "", lastname: "", isEditable : false });
   }
 
   const ClicktoDelete = (number) => {
@@ -37,15 +38,29 @@ const ProfilePage = () => {
     updateUserProfiles([...userProfiles]);
   }
 
+  const updateValue = (event, index) => {
+    // console.log(event.target.value, index)
+
+    userProfiles[index][event.target.name] = event.target.value;
+
+    updateUserProfiles([...userProfiles]);
+  }
+
+  const ClicktoSave = (index) => {
+    userProfiles[index].isEditable = false;
+
+    updateUserProfiles([...userProfiles]);
+  }
+
   return (
     <div>
       <h3>Profile Infomation</h3>
       <div>
         <label>Enter First Name :</label>
-        <input type='text' placeholder='First Name' onChange={getProfiles} name='firstname' />
+        <input type='text' placeholder='First Name' value={profilelist.firstname} onChange={getProfiles} name='firstname' />
 
         <label>Enter Last Name :</label>
-        <input type='text' placeholder='Last Name' onChange={getProfiles} name='lastname' />
+        <input type='text' placeholder='Last Name' value={profilelist.lastname} onChange={getProfiles} name='lastname' />
 
         <button onClick={() => clickButton()}>Sumbit</button>
       </div>
@@ -66,7 +81,7 @@ const ProfilePage = () => {
                   <td>
 
                     { value.isEditable ? 
-                        <input type='text' value={value.firstname} />  
+                        <input type='text' value={value.firstname} onChange={(event) => updateValue(event, index)} name='firstname' />  
                         :
                         value.firstname
                     }
@@ -74,17 +89,24 @@ const ProfilePage = () => {
                   </td>
                   <td>
                     { value.isEditable ? 
-                        <input type='text' value={value.lastname} />  
+                        <input type='text' value={value.lastname} onChange={(event) => updateValue(event, index)} name='lastname' />  
                         :
                         value.lastname
                     }
                   </td>
                   <td>
-                    <button onClick={() => ClicktoUpdate(index)}>Update</button>
-                    <button onClick={() => ClicktoDelete(index)}>Delete</button>
-
-                    <button>Save</button>
-                    <button onClick={() => ClicktoDiscard(index)}>Discard</button>
+                  { value.isEditable ? 
+                    <div>
+                      <button onClick={() => ClicktoSave(index)}>Save</button>
+                      <button onClick={() => ClicktoDiscard(index)}>Discard</button>
+                    </div>
+                    :
+                    <div>
+                      <button onClick={() => ClicktoUpdate(index)}>Update</button>
+                      <button onClick={() => ClicktoDelete(index)}>Delete</button>
+                    </div>
+                  }
+                    
                   </td>
                 </tr>
               )
